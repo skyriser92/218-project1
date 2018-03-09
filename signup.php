@@ -10,11 +10,23 @@
 </head>
 <body style="background-color:#e6e6e6">
 
+<?php
+// define variables and set to empty values
+
+//Validation of email
+$emailErr = "";
+$name = $email = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+}
+
 <div style="margin-top:20px">
 <div style="width:400px; margin:auto; background-color:white; padding:8px; border:solid; border-color:#cccccc">
   <h2 style="text-align:center">Sign Up Form</h2>
   
-  <form action="/action_page.php">
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div class="form-group">
       <label for="fname">First Name:</label>
       <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
