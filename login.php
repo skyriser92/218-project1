@@ -75,10 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				echo $v;
 			}
 
-			if ($v != ''){
-				echo "<br>Email has already been used.";		
-			}
-			else{
+			if ($v != '') {
 				$conn = null;
 				$servername = "sql2.njit.edu";
 				$username = "jcm44";
@@ -101,17 +98,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 
 					if ($v != ''){
-						echo "<br>Password is incorrect";		
+						$conn = null;
+						header( 'Location: success.html' );
 					}
 					else{
-					$conn = null;
-					header( 'Location: success.html' );
+						echo "<br>Password is incorrect";
 					}
 				}
 				catch(PDOException $e) {
 					echo "Error: " . $e->getMessage();
 				}
 			}
+			else {
+				echo "<br>Email Incorrect";		
+			}
+			
 			
 		}		
 		catch(PDOException $e) {
