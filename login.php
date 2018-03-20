@@ -91,11 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 					else{
 					$conn = null;
-					header( 'Location: index.html' );
+					//header( 'Location: index.html' );
 					}
 				}
+				catch(PDOException $e) {
+					echo "Error: " . $e->getMessage();
+				}
 			}
-				
+			
 		}		
 		catch(PDOException $e) {
 			echo "Error: " . $e->getMessage();
