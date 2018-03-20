@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +9,8 @@
 <body>
 <div style="text-align:center; margin-top:30px">
 	<h1>You have Successfully logged in!!!</h1>
+	<p>First name: <?php echo $fname;?><br></p>
+	<p>Last name: <?php echo $lname;?><br></p>
 </div>
 </body>
 </html>
