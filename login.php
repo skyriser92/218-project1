@@ -111,12 +111,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div class="form-group">
-      <label for="fname">First Name:</label>
-      <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname" value="<?php echo $fname;?>">
+      <label for="email">Email:</label>
+      <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email" value="<?php echo $email;?>">
     </div>
 	<div class="form-group">
-      <label for="lname">Last Name:</label>
-      <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname" value="<?php echo $lname;?>">
+      <label for="Upassword">Password:</label>
+      <input type="password" class="form-control" id="Upassword" placeholder="Enter Password" name="Upassword" value="<?php echo $Upassword;?>">
     </div>
 	    <button
     <button
