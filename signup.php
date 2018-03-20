@@ -16,7 +16,7 @@ error_reporting(E_ALL); ini_set('display_errors', '1');
 
 //Validation of email
 $emailErr = "";
-$fname = $lname = $email = $password = $phone = $gender = $birthday = "";
+$fname = $lname = $email = $Upassword = $phone = $gender = $birthday = "";
 
 class TableRows extends RecursiveIteratorIterator { 
     function __construct($it) { 
