@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Sign Up</title>
+  <title>Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,6 +18,25 @@ error_reporting(E_ALL); ini_set('display_errors', '1');
 $emailErr = "";
 $email = $Upassword = "";
 
+
+class TableRows extends RecursiveIteratorIterator { 
+    function __construct($it) { 
+        parent::__construct($it, self::LEAVES_ONLY); 
+    }
+
+    function current() {
+        return "<td style='width: 150px; border: 1px solid black;'>" . parent::current(). "</td>";
+    }
+
+    function beginChildren() { 
+        echo "<tr>"; 
+    } 
+
+    function endChildren() { 
+        echo "</tr>" . "\n";
+    } 
+} 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if (empty($_POST["email"])) {
@@ -31,12 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 	}
 	
-	function test_input($data) {
-	$data = trim($data);
-	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
-	return $data;
-	}
+
 	
 	$Upassword = ($_POST["password"]);
 	
@@ -91,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					}
 					else{
 					$conn = null;
-					//header( 'Location: index.html' );
+					header( 'Location: success.html' );
 					}
 				}
 				catch(PDOException $e) {
@@ -105,6 +119,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 		$conn = null;
 	}
+}
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 ?>
 
