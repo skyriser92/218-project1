@@ -104,3 +104,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 }
 ?>
+
+<div style="margin-top:20px">
+<div style="width:400px; margin:auto; background-color:white; padding:8px; border:solid; border-color:#cccccc">
+  <h2 style="text-align:center">Sign Up Form</h2>
+  
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <div class="form-group">
+      <label for="fname">First Name:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname" value="<?php echo $fname;?>">
+    </div>
+	<div class="form-group">
+      <label for="lname">Last Name:</label>
+      <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname" value="<?php echo $lname;?>">
+    </div>
+	    <button
+    <button
+    <button type="submit" class="btn btn-basic btn-block">Submit</button>
+  </form>
+</div>
+</div>
+
+</body>
+</html>
