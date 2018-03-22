@@ -103,7 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					if ($v != ''){
 						$conn = null;
 						$_SESSION["email"] = "$email";
-						header( 'Location: success.html' );
+						header( 'Location: success.php' );
+						$conn = null;
 					}
 					else{
 						echo "<br>Password is incorrect";
