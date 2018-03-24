@@ -14,7 +14,7 @@ session_start();
 <body style="background-color:#e6e6e6">
 
 <?php
-error_reporting(E_ALL); ini_set('display_errors', '1');
+//error_reporting(E_ALL); ini_set('display_errors', '1');
 // define variables and set to empty values
 
 //Validation of email
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				}
 			}
 			else {
-				echo "<br>Email Incorrect";		
+				$emailErr = "*Email Incorrect";		
 			}
 			
 			
@@ -147,7 +147,7 @@ function test_input($data) {
     </div>
 	<div class="form-group">
       <label for="Upassword">Password:</label>
-      <input type="text" class="form-control" id="password" placeholder="Enter Password" name="password" value="<?php echo $Upassword; ?>">
+      <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password" value="<?php echo $Upassword; ?>">
 	  <span style="color:red"><?php echo $UpasswordErr;?></span>
     </div>
 	    <button
