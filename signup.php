@@ -95,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					// use exec() because no results are returned
 					$conn->exec($sql);
 					echo "New record created successfully";
+					header( 'Location: login.php' );
 				}
 				catch(PDOException $e) {
 					echo $sql . "<br>" . $e->getMessage();
