@@ -39,7 +39,7 @@ class TableRows extends RecursiveIteratorIterator {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if (empty($_POST["email"])) {
-		$emailErr = "Email is required";
+		$emailErr = "*Email is required";
 	} 
 	else {
 		$email = test_input($_POST["email"]);
@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$Upassword = ($_POST["password"]);
 	$phone = ($_POST["phone"]);
 	$birthday = ($_POST["Bday"]);
+	$gender = ($_POST["gender"]);
 
 	
 	if (!empty($_POST["email"])) {
@@ -73,11 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			$v = '';
 			foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
-				echo $v;
+				
 			}
 
 			if ($v != ''){
-				echo "<br>Email has already been used.";		
+				$emailErr = "*Email has already been used.";		
 			}
 			else{
 				$conn = null;
@@ -100,14 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				}
 			}
 			}
-	
-	/*else {
-		$sql = "INSERT INTO accounts (fname, lname, email, phone, birthday, gender)
-			VALUES ($fname, $lname, $email, $phone, $birthday, $gender)";
-			// use exec() because no results are returned
-			$conn->exec($sql);
-			echo "New record created successfully";
-	}*/
 
 		catch(PDOException $e) {
 			echo "Error: " . $e->getMessage();
@@ -117,30 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 
 	}
-	
-	
-/*	else {
-		$servername = "sql2.njit.edu";
-		$username = "jcm44";
-		$password = "lq40ntX5";
-		$dbname = "jcm44";
-
-		try {
-			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-			// set the PDO error mode to exception
-			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "INSERT INTO accounts (fname, lname, email, phone, birthday, gender)
-			VALUES ($fname, $lname, $email, $phone, $birthday, $gender)";
-			// use exec() because no results are returned
-			$conn->exec($sql);
-			echo "New record created successfully";
-		}
-		catch(PDOException $e) {
-			echo $sql . "<br>" . $e->getMessage();
-		}
-
-		$conn = null;
-	} */
 
 function test_input($data) {
   $data = trim($data);
@@ -157,23 +126,24 @@ function test_input($data) {
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div class="form-group">
       <label for="fname">First Name:</label>
-      <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname" value="<?php echo $fname;?>">
+      <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
     </div>
 	<div class="form-group">
       <label for="lname">Last Name:</label>
-      <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname" value="<?php echo $lname;?>">
+      <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
     </div>
 	<div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo $email;?>">
+	  <span style="color:red"><?php echo $emailErr;?></span>
     </div>
 	<div class="form-group">
       <label for="password">Password:</label>
-      <input type="text" class="form-control" id="password" placeholder="Enter New Password" name="password" value="<?php echo $password;?>">
+      <input type="text" class="form-control" id="password" placeholder="Enter New Password" name="password">
     </div>
     <div class="form-group">
       <label for="phone">Phone Number:</label>
-      <input type="text" class="form-control" id="phone" placeholder="Enter Phone" name="phone" value="<?php echo $phone;?>">
+      <input type="text" class="form-control" id="phone" placeholder="Enter Phone" name="phone">
     </div>
 	<div class="form-group">
       <label for="Bday">Birthday:</label>
@@ -181,14 +151,10 @@ function test_input($data) {
     </div>
 	<label>Gender:</label>
     <div class="radio">
-      <label><input type="radio" name="male" <?php if (isset($gender) && $gender=="male") echo "checked";?>>Male</label>
-    </div>
-	<div class="radio">
-      <label><input type="radio" name="female" <?php if (isset($gender) && $gender=="female") echo "checked";?>>Female</label>
-    </div>
-	<div class="radio">
-      <label><input type="radio" name="other" <?php if (isset($gender) && $gender=="other") echo "checked";?>>Other</label>
-    </div>
+		<label><input type="radio" name="gender" value="male" checked> Male</label><br>
+		<label><input type="radio" name="gender" value="female"> Female</label><br>
+		<label><input type="radio" name="gender" value="other"> Other</label>
+	</div>
     <button
     <button
     <button type="submit" class="btn btn-basic btn-block">Submit</button>
