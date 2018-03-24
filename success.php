@@ -7,9 +7,11 @@ session_start();
   <title>Login Successful</title>
 </head>
 <body>
-
+<div style="text-align:center; margin-top:30px">
+	<h1>You have Successfully logged in!!!</h1>
+<div style="width:320px; margin:auto;">
 <?php
-echo "<table style='border: solid 1px black;'>";
+echo "<table>";
  echo "<tr><th>Firstname</th><th>Lastname</th></tr>";
 
 class TableRows extends RecursiveIteratorIterator { 
@@ -18,7 +20,7 @@ class TableRows extends RecursiveIteratorIterator {
     }
 
     function current() {
-        return "<td style='width: 150px; border: 1px solid black;'>" . parent::current(). "</td>";
+        return "<td style='width: 150px;'>" . parent::current(). "</td>";
     }
 
     function beginChildren() { 
@@ -57,11 +59,8 @@ catch(PDOException $e) {
 $conn = null;
 echo "</table>";
 ?> 
+</div>
 
-
-
-<div style="text-align:center; margin-top:30px">
-	<h1>You have Successfully logged in!!!</h1>
 </div>
 </body>
 </html>
