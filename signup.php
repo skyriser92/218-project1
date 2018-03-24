@@ -157,7 +157,7 @@ function test_input($data) {
 	</div>
     <button
     <button
-    <button type="submit" class="btn btn-basic btn-block">Submit</button>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
   </form>
 </div>
 </div>

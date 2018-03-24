@@ -18,8 +18,9 @@ error_reporting(E_ALL); ini_set('display_errors', '1');
 // define variables and set to empty values
 
 //Validation of email
-$emailErr = "";
-$email = $Upassword = "";
+$emailErr = $UpasswordErr = "";
+$email = "";
+$Upassword = "";
 
 
 class TableRows extends RecursiveIteratorIterator { 
@@ -43,7 +44,7 @@ class TableRows extends RecursiveIteratorIterator {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if (empty($_POST["email"])) {
-		$emailErr = "Email is required";
+		$emailErr = "*Email is required";
 	} 
 	else {
 		$email = test_input($_POST["email"]);
@@ -53,10 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 	}
 	
+		$Upassword = ($_POST["password"]);
 
-	
-	$Upassword = ($_POST["password"]);
-	
 	if (!empty($_POST["email"])) {
 		$servername = "sql2.njit.edu";
 		$username = "jcm44";
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-			echo "Connected Successfully! <br>";
+			
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("SELECT email FROM accounts WHERE email = '$email'"); 
 			$stmt->execute();
@@ -73,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			// set the resulting array to associative
 			$result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
 
-			$v = '';
+			
 			foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
-				echo $v;
+					
 			}
 
 			if ($v != '') {
@@ -87,9 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				try {
 					$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-					echo "Connected Successfully! <br>";
+					//echo "Connected Successfully! <br>";
 					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-					$stmt = $conn->prepare("SELECT password FROM accounts WHERE email = '$Upassword'"); 
+					$stmt = $conn->prepare("SELECT password FROM accounts WHERE password = '$Upassword'"); 
 					$stmt->execute();
 
 					// set the resulting array to associative
@@ -98,16 +97,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					$v = '';
 					foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
 						echo $v;
+						echo $Upassword;
 					}
-
-					if ($v != ''){
+						
+					if ($v != '' && $Upassword != ''){
 						$conn = null;
 						$_SESSION["email"] = "$email";
 						header( 'Location: success.php' );
 						$conn = null;
 					}
+
 					else{
-						echo "<br>Password is incorrect";
+						$UpasswordErr = "*Password is incorrect";
 					}
 				}
 				catch(PDOException $e) {
@@ -141,15 +142,17 @@ function test_input($data) {
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email" value="<?php echo $email;?>">
+      <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email" value="<?php echo $email; ?>">
+	  <span style="color:red"><?php echo $emailErr;?></span>
     </div>
 	<div class="form-group">
       <label for="Upassword">Password:</label>
-      <input type="password" class="form-control" id="Upassword" placeholder="Enter Password" name="Upassword" value="<?php echo $Upassword;?>">
+      <input type="text" class="form-control" id="password" placeholder="Enter Password" name="password" value="<?php echo $Upassword; ?>">
+	  <span style="color:red"><?php echo $UpasswordErr;?></span>
     </div>
 	    <button
     <button
-    <button type="submit" class="btn btn-basic btn-block">Submit</button>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
   </form>
 </div>
 </div>
